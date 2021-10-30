@@ -1,0 +1,37 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+unsigned int cstringpow(const char *s)
+{
+    unsigned int answer = 1;
+    const unsigned int size = strlen(s);
+    for (unsigned int i = 1; i < size/2+1; ++i)
+    {
+        if (size % i == 0)
+        {
+            bool not_broken = 1; 
+            for (int j = 0; j < size-i; j += i)
+            {
+                if (strncmp(s+j, s+j+i, i) != 0)
+                {
+                    not_broken = 0;
+                    break;
+                }
+            }
+            if (not_broken)
+            {
+                answer = size/i;
+                break;
+            }
+        }
+    }
+    return answer;
+}
+ 
+int main()
+{
+    char s[1000010]; 
+    while (cin >> s)
+        cout << cstringpow(s) << endl;
+    return 0;
+}
